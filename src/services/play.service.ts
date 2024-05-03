@@ -7,22 +7,42 @@ axios.defaults.baseURL = API_URL;
 
 export const PlayService = {
   async getByTheaterId(id: number) {
-    const { data } = await axios.get<Play[]>(`/play/all/theater/${id}`);
-    return data;
+    try {
+      const { data } = await axios.get<Play[]>(`/play/all/theater/${id}`);
+      return data;
+    } catch (e) {
+      console.error('Error fetching data PlayService.getByTheaterId:', e);
+      return [] as Play[];
+    }
   },
 
   async getById(id: number) {
-    const { data } = await axios.get<Play>(`/play/${id}`);
-    return data;
+    try {
+      const { data } = await axios.get<Play>(`/play/${id}`);
+      return data;
+    } catch (e) {
+      console.error('Error fetching data PlayService.getById:', e);
+      return {} as Play;
+    }
   },
 
   async getAll() {
-    const { data } = await axios.get<Play[]>('/play/all');
-    return data;
+    try {
+      const { data } = await axios.get<Play[]>('/play/all');
+      return data;
+    } catch (e) {
+      console.error('Error fetching data PlayService.getAll:', e);
+      return [] as Play[];
+    }
   },
 
   async getPlaysPerDate(date: string) {
-    const { data } = await axios.get<Play[]>(`/play/all/date/${date}`);
-    return data;
+    try {
+      const { data } = await axios.get<Play[]>(`/play/all/date/${date}`);
+      return data;
+    } catch (e) {
+      console.error('Error fetching data PlayService.getPlaysPerDate:', e);
+      return [] as Play[];
+    }
   }
 }

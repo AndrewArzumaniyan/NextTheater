@@ -12,8 +12,14 @@ interface HomePageProps {
 }
 
 const HomePage: FC<HomePageProps> = ({ theaters, plays }) => {
+  if (!(theaters && plays)) {
+    return (
+      <div>Данных нет!</div>
+    );
+  }
   return (
-    <HomeScreen theaters={theaters} plays={plays} />
+    <></>
+    // <HomeScreen theaters={theaters} plays={plays} />
   );
 }
 
@@ -25,7 +31,7 @@ export const getStaticProps: GetStaticProps<any> = async () => {
   return {
     props: {
       theaters: theaters || null, // Если данные не найдены, передаем null
-      plays: plays,
+      plays: plays || null,
     },
     revalidate: 60,
   };

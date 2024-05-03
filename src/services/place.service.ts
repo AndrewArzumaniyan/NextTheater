@@ -7,7 +7,12 @@ axios.defaults.baseURL = API_URL;
 
 export const PlaceService = {
   async getPlacesByBeginId(id: number) {
-    const { data } = await axios.get<Place[]>(`/place/all/begin/${id}`);
-    return data;
+    try {
+      const { data } = await axios.get<Place[]>(`/place/all/begin/${id}`);
+      return data;
+    } catch (e) {
+      console.error('Error fetching data PlaceService.getPlacesByBeginId:', e);
+      return [] as Place[];
+    }
   },
 }

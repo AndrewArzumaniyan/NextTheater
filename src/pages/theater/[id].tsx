@@ -20,6 +20,7 @@ const TheaterPage:  NextPage<TheaterPageProps> = ({ theater, plays }) => {
     )
   }
   return (
+    // <></>
     <TheaterScreen theater={theater} plays={plays} />
   );
 }
@@ -47,7 +48,7 @@ export const getStaticProps: GetStaticProps<any> = async context => {
 
   return {
     props: {
-      theater: theater || null, // Если данные не найдены, передаем null
+      theater: theater, // Если данные не найдены, передаем null
       plays: plays,
     },
     revalidate: 60,

@@ -7,12 +7,22 @@ axios.defaults.baseURL = API_URL;
 
 export const BeginPlaceService = {
   async getById(id: number) {
-    const { data } = await axios.get<BeginPlace>(`/begin-place/${id}`);
-    return data;
+    try {
+      const { data } = await axios.get<BeginPlace>(`/begin-place/${id}`);
+      return data;
+    } catch (e) {
+      console.error("Eror fetching data BeginPlaceService.getById:", e);
+      return [] as BeginPlace[];
+    }
   },
 
   async changeStatus(id: number, status: boolean) {
-    const response = await axios.put<BeginPlace>(`/begin-place/${id}`, status);
-    return response.data;
+    try {
+      const { data } = await axios.put<BeginPlace>(`/begin-place/${id}`, status);
+      return data;
+    } catch (e) {
+      console.error("Eror putting data BeginPlaceService.changeStatus:", e);
+      return {} as BeginPlace;
+    }   
   },
 }

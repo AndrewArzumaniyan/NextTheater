@@ -1,32 +1,23 @@
 import { Play } from "@/interfaces/play.interface";
 import React, { FC } from "react";
 import styles from "./PlayCard.module.scss";
-import Link from "next/link";
+import Card from "../Card/Card";
 
 interface PlayCardProps {
   play: Play;
 }
 
 const PlayCard: FC<PlayCardProps> = ({ play }) => {
-
-
   return (
-    <Link
-      className={styles.card}
-      href={`/play/${play.playId}`}
+    <Card 
+      cardHref={`/play/${play.playId}`} 
+      btnHref={`/buy/ticket/`} 
+      btnText="спектакль"
     >
-      <div className={styles.info}>
-        <h4 className={styles.title}>{play.playName}</h4>
-        <b className={styles.subtitle}>{play.playGenre}</b>
-        <p className={styles.description}>{play.playInfo}</p>
-      </div>
-      <Link
-        href={`/play/${play.playId}/ticket`}
-        className={styles.btn}
-      >
-        билеты
-      </Link>
-    </Link>
+      <h4 className={styles.title}>{play.playName}</h4>
+      <b className={styles.subtitle}>{play.playGenre}</b>
+      <p className={styles.description}>{play.playInfo}</p>
+    </Card>
   );
 }
 
