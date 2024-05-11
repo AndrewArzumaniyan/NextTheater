@@ -1,4 +1,4 @@
-import PlayCard from "@/components/UI/PlayCard/PlayCard";
+import PlayCard from "@/components/UI/PlayCards/PlayCard";
 import { Play } from "@/interfaces/play.interface";
 import { Theater } from "@/interfaces/theater.interface";
 import React, { FC } from "react";

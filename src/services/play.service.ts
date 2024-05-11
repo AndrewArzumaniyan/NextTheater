@@ -36,9 +36,10 @@ export const PlayService = {
     }
   },
 
-  async getPlaysPerDate(date: string) {
+  async getPlaysPerDate(date: Date) {
+    const formattedDate = `${date.getFullYear()}-${date.getMonth()+1}`
     try {
-      const { data } = await axios.get<Play[]>(`/play/all/date/${date}`);
+      const { data } = await axios.get<Play[]>(`/play/all/date/${formattedDate}`);
       return data;
     } catch (e) {
       console.error('Error fetching data PlayService.getPlaysPerDate:', e);

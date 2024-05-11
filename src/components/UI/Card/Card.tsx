@@ -1,37 +1,26 @@
 import React, { FC, ReactNode } from "react";
-import styles from "./Card.module.scss";
 import Link from "next/link";
+import { cardElementInterface } from "../CardBlock/CardElement.interface";
+import styles from "./Card.module.scss";
+
 
 interface CardProps {
-  cardHref: string;
-  btnHref: string;
-  btnText: string;
-  children: ReactNode;
+  cardElement: cardElementInterface;
+  className: string;
 }
 
-const Card: FC<CardProps> = ({ cardHref, btnHref, btnText, children }) => {
+const Card: FC<CardProps> = ({ cardElement, className }) => {
   return (
-    <div
-      className={styles.card}
-    >
-      <div className={styles.info}>
-        {children}
+    <li className={`${className || ''} ${styles.card}`}>
+      <div className={styles.top}>
+        <h4 className={styles.title}>{cardElement.title}</h4>
+        {cardElement.subtitle || <b>{cardElement.subtitle}</b>}
       </div>
-      <div className={styles["btn-box"]}>
-        <Link
-          href={btnHref}
-          className={styles.btn}
-        >
-          билеты
-        </Link>
-        <Link
-          className={styles.btn}
-          href={cardHref}
-          >
-          {btnText}
-        </Link>
+      <div className={styles.bottom}>
+        <Link className={`btn ${styles.btn}`} href={cardElement.btnHref}>{cardElement.btnText}</Link>
+        <b className={styles.bottomText}>{cardElement.bottomText}</b>
       </div>
-    </div>
+    </li>
   );
 }
 

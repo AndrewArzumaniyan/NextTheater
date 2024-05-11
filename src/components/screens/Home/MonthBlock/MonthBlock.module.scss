@@ -1,0 +1,23 @@
+.list {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+}
+
+.item {
+  height: 30px;
+  flex: 0 0 calc((100% - (30px * 4)) / 5);
+}
+
+.btn {
+  text-align: center;
+  background-color: #fff;
+  width: 100%;
+  color: #000;
+  border-radius: 10px;
+
+  &.active {
+    background-color: #00316B;
+    color: #fff;
+  }
+}

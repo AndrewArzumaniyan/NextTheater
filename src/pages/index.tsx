@@ -12,21 +12,15 @@ interface HomePageProps {
 }
 
 const HomePage: FC<HomePageProps> = ({ theaters, plays }) => {
-  if (!(theaters && plays)) {
-    return (
-      <div>Данных нет!</div>
-    );
-  }
   return (
-    <></>
-    // <HomeScreen theaters={theaters} plays={plays} />
+    <HomeScreen theaters={theaters} plays={plays} />
   );
 }
 
 export const getStaticProps: GetStaticProps<any> = async () => {
   const theaters = await TheaterService.getAll();
   const currentDate = new Date(Date.now());
-  const plays = await PlayService.getPlaysPerDate(`${currentDate.getFullYear()}-${currentDate.getMonth()+1}`);
+  const plays = await PlayService.getPlaysPerDate(currentDate);
 
   return {
     props: {
