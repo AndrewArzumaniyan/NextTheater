@@ -34,14 +34,19 @@ const MonthBLock: FC<MonthBLockProps> = ({ monthClickHandler }) => {
     <ul className={styles.list}>
       {monthsNumbers.map((monthNumber, i) => (
         <li 
-          onClick={(event) => {
-            setActive(i);
-            monthClickHandler(event);
-          }} 
           className={styles.item} 
           key={monthNumber}
         >
-          <button className={`${active === i && styles.active} ${styles.btn}`} data-month={monthNumber}>{monthMap[monthNumber]}</button>
+          <button 
+            className={`${active === i && styles.active} ${styles.btn}`} 
+            data-month={monthNumber}
+            onClick={(event) => {
+              setActive(i);
+              monthClickHandler(event);
+            }}
+          >
+            {monthMap[monthNumber]}
+          </button>
         </li>
       ))}
     </ul>

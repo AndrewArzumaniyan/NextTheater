@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import Link from "next/link";
-import { cardElementInterface } from "../CardBlock/CardElement.interface";
+import { cardElementInterface } from "../../../interfaces/CardElement.interface";
 import styles from "./Card.module.scss";
 
 

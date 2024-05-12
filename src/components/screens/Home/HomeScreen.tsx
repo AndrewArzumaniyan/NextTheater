@@ -7,7 +7,7 @@ import Head from "next/head";
 import React, { FC, useEffect, useState } from "react";
 import styles from "./HomeScreen.module.scss"
 import { PlayService } from "@/services/play.service";
-import { cardElementInterface } from "@/components/UI/CardBlock/CardElement.interface";
+import { cardElementInterface } from "@/interfaces/CardElement.interface";
 import CardBlock from "@/components/UI/CardBlock/CardBlock";
 
 interface HomeScreenProps {
@@ -25,29 +25,29 @@ const HomeScreen: FC<HomeScreenProps> = ({ theaters, plays }) => {
       title: theater.name,
       subtitle: '',
       btnText: 'страница театра',
-      btnHref: '#',
+      btnHref: `/theater/${theater.theaterId}`,
       bottomText: `г.${theater.city}, улица${theater.street}, дом ${theater.house}`
     }
   })
 
   useEffect(() => {
-    setLoading(true);
-    let tmpPlayCardElements: cardElementInterface[] = selectedPlays.map((play) => {
+    let tmpPlayCardElements: cardElementInterface[] = !selectedPlays.length ? [] : selectedPlays.map((play) => {
       return {
         title: play.playName,
         subtitle: `Режиссер: ${play.directorName}`,
         btnText: 'страница спектакля',
-        btnHref: '#',
+        btnHref: `/play/${play.playId}`,
         bottomText: `${play.theaterName}`
       }
     });
     
     setplayCardElements(tmpPlayCardElements);
-    setLoading(false);
   }, [selectedPlays]);
 
   const monthClickHandler = async function (event: MouseEvent) {
+    setLoading(true);
     const targetElement = event.currentTarget as HTMLElement;
+    console.log(targetElement)
 
     let month = targetElement.dataset.month;
     if (!month) return;
@@ -56,6 +56,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ theaters, plays }) => {
     const playsData = await PlayService.getPlaysPerDate(date);
     console.log(playsData)
     setSelectedPlays(playsData);
+    setLoading(false);
   }
 
   return (
@@ -70,7 +71,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ theaters, plays }) => {
         <CardBlock cardElements={playCardElements} title="Спектакли" />
         }
 
-        <CardBlock cardElements={theaterCardElements} title="Театры" />
+        <CardBlock cardElements={theaterCardElements} title="Все театры" />
       </main>
 
       <Footer />
