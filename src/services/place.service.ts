@@ -15,4 +15,14 @@ export const PlaceService = {
       return [] as Place[];
     }
   },
+
+  async getFreePlacesByBeginId(id: number) {
+    try {
+      const { data } = await axios.get<Place[]>(`/place/free/begin/${id}`);
+      return data;
+    } catch (e) {
+      console.error('Error fetching data PlaceService.getFreePlacesByBeginId:', e);
+      return [] as Place[];
+    }
+  },
 }

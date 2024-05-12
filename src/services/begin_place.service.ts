@@ -18,7 +18,11 @@ export const BeginPlaceService = {
 
   async changeStatus(id: number, status: boolean) {
     try {
-      const { data } = await axios.put<BeginPlace>(`/begin-place/${id}`, status);
+      const { data } = await axios.put<BeginPlace>(`/begin-place/${id}`, JSON.stringify(status), {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
       return data;
     } catch (e) {
       console.error("Eror putting data BeginPlaceService.changeStatus:", e);

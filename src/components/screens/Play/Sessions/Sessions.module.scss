@@ -1,0 +1,57 @@
+.sessions {
+
+}
+
+.subtitle {
+  font-size: 25px;
+  font-weight: normal;
+  margin-bottom: 25px;
+}
+
+.title {
+  margin-bottom: 40px;
+}
+
+.datesList {
+
+}
+
+.dateItem {
+  margin-bottom: 20px;
+}
+
+.dateItemBlock {
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 10px;
+
+  h4 {
+    margin-right: 42px;
+  }
+}
+
+.sessionsList {
+  display: none;
+  flex-direction: column;
+
+  &.active {
+    display: flex;
+  }
+}
+
+.sessionItem {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 75px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.sessionTitle {
+  font-size: 20px;
+  font-weight: 400;
+}

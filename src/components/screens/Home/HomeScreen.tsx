@@ -4,7 +4,7 @@ import Header from "@/components/UI/Header/Header";
 import MonthBLock from "./MonthBlock/MonthBlock";
 import Footer from "@/components/UI/Footer/Footer";
 import Head from "next/head";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import styles from "./HomeScreen.module.scss"
 import { PlayService } from "@/services/play.service";
 import { cardElementInterface } from "@/interfaces/CardElement.interface";
@@ -18,7 +18,6 @@ interface HomeScreenProps {
 const HomeScreen: FC<HomeScreenProps> = ({ theaters, plays }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedPlays, setSelectedPlays] = useState<Play[]>(plays);
-  const [playCardElements, setplayCardElements] = useState<cardElementInterface[]>([]);
 
   const theaterCardElements: cardElementInterface[] = theaters.map((theater) => {
     return {
@@ -30,18 +29,16 @@ const HomeScreen: FC<HomeScreenProps> = ({ theaters, plays }) => {
     }
   })
 
-  useEffect(() => {
-    let tmpPlayCardElements: cardElementInterface[] = !selectedPlays.length ? [] : selectedPlays.map((play) => {
-      return {
-        title: play.playName,
-        subtitle: `Режиссер: ${play.directorName}`,
-        btnText: 'страница спектакля',
-        btnHref: `/play/${play.playId}`,
-        bottomText: `${play.theaterName}`
-      }
+  const playCardElements = useMemo(() => {
+      return !selectedPlays.length ? [] : selectedPlays.map((play) => {
+        return {
+          title: play.playName,
+          subtitle: `Режиссер: ${play.directorName}`,
+          btnText: 'страница спектакля',
+          btnHref: `/play/${play.playId}`,
+          bottomText: `${play.theaterName}`
+        }
     });
-    
-    setplayCardElements(tmpPlayCardElements);
   }, [selectedPlays]);
 
   const monthClickHandler = async function (event: MouseEvent) {

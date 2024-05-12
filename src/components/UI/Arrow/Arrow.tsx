@@ -20,7 +20,7 @@ interface ArrowProps {
 
 const Arrow: FC<ArrowProps> = ({ width, height, fill, direction }) => {
   const styles = {
-    transform: `rotate(${directionMap[direction]})`
+    transform: `rotate(${directionMap[direction]}deg)`
   }
 
   return (

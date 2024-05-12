@@ -1,23 +1,22 @@
 import { Place } from "@/interfaces/place.interface";
 import { PlaceService } from "@/services/place.service";
-import { PlayService } from "@/services/play.service";
 import { GetServerSideProps } from "next";
 import React, { FC } from "react";
+import BuyTicketScreen from "@/components/screens/BuyTicket/BuyTicket";
 
 interface BuyTicketPageProps {
   places: Place[];
+  beginId: number;
 }
 
-const BuyTicketPage: FC<BuyTicketPageProps> = ({ places }) => {
+const BuyTicketPage: FC<BuyTicketPageProps> = ({ places, beginId }) => {
   return (
-    <>
-      
-    </>
+    <BuyTicketScreen places={places} beginId={beginId} />
   );
 };
 
 export const getServerSideProps: GetServerSideProps<BuyTicketPageProps> = async (context) => {
-  const id = context.query.id;
+  const id = context.query.id || 0;
 
   if (!id) {
     return { notFound: true };
@@ -25,13 +24,13 @@ export const getServerSideProps: GetServerSideProps<BuyTicketPageProps> = async 
 
   const begin_id = +id;
 
-  try {
-    const places = await PlaceService.getPlacesByBeginId(begin_id);
-    return { props: { places } };
-  } catch (error) {
-    console.error("Error fetching places:", error);
-    return { notFound: true };
-  }
+  const places = await PlaceService.getFreePlacesByBeginId(begin_id);
+  return {
+    props: { 
+      places,
+      beginId: begin_id
+    }
+  };
 };
 
 export default BuyTicketPage;
